@@ -17,7 +17,7 @@ const sessionMiddleware = session({
   resave: false,
   saveUninitialized: true,
   store: store,
-  cookie: { maxAge: 60000 },
+  cookie: { maxAge: 5 * 60 * 60000 },
 });
 
 const isAuthenticated = (req, res, next) => {
@@ -48,7 +48,7 @@ app.get("/dashboard", isAuthenticated, (req, res) => {
   res.send(`Welcome to your dashboard, ${req.session.userId}`);
 });
 
-app.post("/logout", isAuthenticated, (req, res) => {
+app.post("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).send("Logout failed");

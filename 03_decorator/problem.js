@@ -9,13 +9,13 @@ function createPizza(toppings) {
 
   switch (toppings) {
     case "cheese":
-      price += 2;
+      price += CHEESE_TOPPING_PRICE;
       break;
     case "pepperoni":
-      price += 3;
+      price += PEPPERONI_TOPPING_PRICE;
       break;
     case "cheese_and_pepperoni":
-      price += 5;
+      price += CHEESE_TOPPING_PRICE + PEPPERONI_TOPPING_PRICE;
       break;
     default:
       // Basic pizza with no toppings
@@ -23,7 +23,7 @@ function createPizza(toppings) {
   }
 
   return {
-    price: price,
+    price,
   };
 }
 

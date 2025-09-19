@@ -11,7 +11,16 @@ const roles = {
     inherits: ["Manager"],
   },
 };
-
+/**
+ *Why Array.from()?
+Array.from() is a built-in method that converts array-like or iterable objects into a real JavaScript array.
+*A Set is iterable, but not an array.
+*If you want to return permissions as a normal array (so you can use map(), filter(), etc.), you must convert it.
+ *Array.from() is equivalent to spread operator:
+ return [...allPermissions];
+ * @param {*} role
+ * @return {*} a real javascript array
+ */
 function getPermissions(role) {
   let allPermissions = new Set();
 

@@ -1,0 +1,40 @@
+class PaypallGateway {
+  constructor() {
+    this.name = "paypall";
+  }
+  processPayment(amount) {
+    console.log(`processing $${amount} through ${this.name}`);
+  }
+}
+class StripeGateway {
+  constructor() {
+    this.name = "stripe";
+  }
+  processPayment(amount) {
+    console.log(`processing $${amount} through ${this.name}`);
+  }
+}
+class paymentFactory {
+  static createPaymentGateway(type) {
+    switch (type) {
+      case "paypall":
+        return new PaypallGateway();
+        break;
+      case "stripe":
+        return new StripeGateway();
+        break;
+      default:
+        throw new Error("Unsupported Gateway");
+    }
+  }
+}
+
+function processOrder(paymentType, amount) {
+  try {
+    const paymentGateway = paymentFactory.createPaymentGateway(paymentType);
+    paymentGateway.processPayment(amount);
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+processOrder("stripe", 160);
