@@ -1,3 +1,12 @@
+### Command Pattern
+**Definition**
+- This pattern is very common in financial systems:
+- Banking transactions (debit + credit).
+- Shopping carts (reserve stock, charge payment, confirm order).
+- Databases (SQL transactions → commit/rollback).
+- The Command pattern here makes transactions modular, reversible, and composable.
+- So the purpose of Command Pattern here is to encapsulate each step of a transaction in a consistent way, so they can be executed and undone in sequence.
+
 ### 1. Approach using normal functions
 
 **Pros:**

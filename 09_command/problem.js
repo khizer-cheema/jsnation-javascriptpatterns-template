@@ -1,3 +1,4 @@
+// Both below functions expect a command object with { action, account, amount }.
 function deductFunds(command) {
   console.log(`Deducting ${command.amount} from account ${command.account}`);
 }
@@ -5,6 +6,8 @@ function deductFunds(command) {
 function creditFunds(command) {
   console.log(`Crediting ${command.amount} to account ${command.account}`);
 }
+// command.action(command)
+// e.g. deductFunds({ action: deductFunds, account: "12345", amount: 100 });
 
 function executeTransaction(commands) {
   console.log("Starting transaction");
@@ -17,7 +20,18 @@ function executeTransaction(commands) {
     throw error;
   }
 }
-
+/**
+ *
+ * @param {*} commands.reverse()
+ * Reverses the order of commands in the array.
+ *Why? Because rollback should happen in the opposite order of execution.
+ *👉 Example:
+ *If we did:
+ *Deduct funds from Account A
+ *Credit Credit funds to Account B
+ *On rollback, we must undo step 2 first, then step 1.
+ *This ensures the system goes back to the exact original state.
+ */
 function rollbackTransaction(commands) {
   commands.reverse().forEach((command) => undoCommand(command));
   console.log("Transaction rolled back");

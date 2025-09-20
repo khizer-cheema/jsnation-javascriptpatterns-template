@@ -1,3 +1,9 @@
+### Strategy Pattern
+**definition:**
+- These are different algorithms (strategies) for the same task: compressing data.
+- They follow the same function signature: input = data, output = "compressed data".
+- Benefit: you can swap them without changing client code.
+
 ### 1. Approach using normal Functions
 
 **Pros:**
