@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MVVM To-Do App</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    ul { padding: 0; }
+    li { list-style: none; margin: 5px 0; }
+    button { margin-left: 10px; }
+  </style>
+</head>
+<body>
+  <h2>📋 MVVM To-Do List</h2>
+  
+  <input type="text" id="todoInput" placeholder="Enter a task" />
+  <button id="addBtn">Add Task</button>
+
+  <ul id="todoList"></ul>
+
+  <script>
+    // ========================
+    // 🟢 MODEL
+    // ========================
+    class TodoModel {
+      constructor() {
+        this.todos = [];
+      }
+      add(todo) {
+        this.todos.push(todo);
+        return this.todos;
+      }
+      remove(index) {
+        this.todos.splice(index, 1);
+        return this.todos;
+      }
+      getAll() {
+        return this.todos;
+      }
+    }
+
+    // ========================
+    // 🔵 VIEWMODEL
+    // ========================
+    class TodoViewModel {
+      constructor(model) {
+        this.model = model;
+
+        // Bind UI elements
+        this.todoInput = document.getElementById("todoInput");
+        this.addBtn = document.getElementById("addBtn");
+        this.todoList = document.getElementById("todoList");
+
+        // Attach event listeners
+        this.addBtn.addEventListener("click", () => this.addTodo());
+        this.todoInput.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") this.addTodo();
+        });
+
+        // Initial render
+        this.render();
+      }
+
+      addTodo() {
+        const value = this.todoInput.value.trim();
+        if (value) {
+          this.model.add(value);
+          this.todoInput.value = "";
+          this.render();
+        }
+      }
+
+      removeTodo(index) {
+        this.model.remove(index);
+        this.render();
+      }
+
+      render() {
+        this.todoList.innerHTML = "";
+        this.model.getAll().forEach((todo, index) => {
+          const li = document.createElement("li");
+          li.textContent = todo;
+
+          const btn = document.createElement("button");
+          btn.textContent = "❌";
+          btn.addEventListener("click", () => this.removeTodo(index));
+
+          li.appendChild(btn);
+          this.todoList.appendChild(li);
+        });
+      }
+    }
+
+    // ========================
+    // 🎮 CLIENT CODE
+    // ========================
+    const model = new TodoModel();
+    const viewModel = new TodoViewModel(model);
+  </script>
+</body>
+</html>

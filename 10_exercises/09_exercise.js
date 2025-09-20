@@ -148,4 +148,4 @@ remote.executeCommand(new LockDoorCommand(door));
 
 console.log("\n--- Undoing last 2 commands ---");
 remote.undo(); // undo lock door
-r;
+remote.undo(); // undo thermostat
